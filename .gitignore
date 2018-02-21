@@ -1,7 +1,10 @@
 .DS_Store
+.idea
 
 build/**
 !build/ReadMe.TXT
+
+cmake-build-*
 
 # Compiled Object files
 *.o
