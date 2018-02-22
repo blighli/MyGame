@@ -35,6 +35,9 @@ int main()
         return -1;
     }
 
+    /* Make the window's context current */
+    glfwMakeContextCurrent(window);
+
     GLenum err = glewInit();
     if (GLEW_OK != err)
     {
@@ -42,9 +45,6 @@ int main()
         fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
     }
     fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
