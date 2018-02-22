@@ -18,18 +18,19 @@ if (APPLE)
             "${CORE_FOUNDATION_FRAMEWORK}"
             "${CORE_VIDEO_FRAMEWORK}")
 endif()
-if (MSVC)
-    find_library(GLFW NAMES glfw3.lib PATHS lib/msvc)
-    find_library(GLEW NAMES glew32s.lib PATHS lib/msvc)
-endif()
-if (MINGW)
-    find_library(GLFW NAMES libglfw3.a PATHS lib/mingw)
-    find_library(GLEW NAMES libglew32.a PATHS lib/mingw)
+if(WIN32)
+    if (MSVC)
+        find_library(GLFW NAMES glfw3.lib PATHS lib/msvc)
+        find_library(GLEW NAMES glew32s.lib PATHS lib/msvc)
+    endif()
+    if (MINGW)
+        find_library(GLFW NAMES libglfw3.a PATHS lib/mingw)
+        find_library(GLEW NAMES libglew32.a PATHS lib/mingw)
+    endif()
+    add_definitions(-DGLEW_STATIC)
 endif()
 
 find_package(OpenGL)
-
-add_definitions(-DGLEW_STATIC)
 
 list(APPEND LIBS
         "${GLFW}"
