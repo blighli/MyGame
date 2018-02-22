@@ -5,6 +5,22 @@
 #include <GLFW/glfw3.h>
 #include <cstdio>
 
+void Render(void)
+{
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glBegin(GL_TRIANGLES);
+    {
+        glColor3f(1.0,0.0,0.0);
+        glVertex2f(0, .5);
+        glColor3f(0.0,1.0,0.0);
+        glVertex2f(-.5,-.5);
+        glColor3f(0.0, 0.0, 1.0);
+        glVertex2f(.5, -.5);
+    }
+    glEnd();
+}
+
 int main()
 {
     GLFWwindow* window;
@@ -38,7 +54,7 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+        Render();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
