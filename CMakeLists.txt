@@ -30,8 +30,8 @@ endif()
 find_package(OpenGL)
 
 list(APPEND LIBS
-        "${OPENGL_LIBRARIES}"
         "${GLFW}"
-        "${GLEW}")
+        "${GLEW}"
+        "${OPENGL_LIBRARIES}")
 
 add_subdirectory(src)

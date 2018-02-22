@@ -1,8 +1,9 @@
-#include <stdio.h>
+#define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <cstdio>
 
-int main(void)
+int main()
 {
     GLFWwindow* window;
 
@@ -22,9 +23,9 @@ int main(void)
     if (GLEW_OK != err)
     {
         /* Problem: glewInit failed, something is seriously wrong. */
-        printf("Error: %s\n", glewGetErrorString(err));
+        fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
     }
-    printf("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+    fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
