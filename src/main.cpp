@@ -1,7 +1,5 @@
-#ifndef __APPLE__
+#define GLEW_STATIC
 #include <GL/glew.h>
-#endif
-
 #include <GLFW/glfw3.h>
 #include <cstdio>
 
@@ -37,7 +35,6 @@ int main()
         return -1;
     }
 
-#ifndef __APPLE__
     GLenum err = glewInit();
     if (GLEW_OK != err)
     {
@@ -45,7 +42,6 @@ int main()
         fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
     }
     fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-#endif
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
