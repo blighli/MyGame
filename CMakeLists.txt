@@ -29,6 +29,8 @@ endif()
 
 find_package(OpenGL)
 
+add_definitions(-DGLEW_STATIC)
+
 list(APPEND LIBS
         "${GLFW}"
         "${GLEW}"
