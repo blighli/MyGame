@@ -4,6 +4,8 @@ project(MyGame)
 
 include_directories(include)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  "${PROJECT_SOURCE_DIR}/bin")
+
 if (APPLE)
     find_library(GLFW NAMES libglfw3.a PATHS lib/apple)
     find_library(COCOA_FRAMEWORK Cocoa)
