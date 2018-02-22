@@ -20,15 +20,18 @@ if (APPLE)
 endif()
 if (MSVC)
     find_library(GLFW NAMES glfw3.lib PATHS lib/msvc)
+    find_library(GLEW NAMES glew32s.lib PATHS lib/msvc)
 endif()
 if (MINGW)
     find_library(GLFW NAMES libglfw3.a PATHS lib/mingw)
+    find_library(GLEW NAMES libglew32.a PATHS lib/mingw)
 endif()
 
 find_package(OpenGL)
 
 list(APPEND LIBS
         "${OPENGL_LIBRARIES}"
-        "${GLFW}")
+        "${GLFW}"
+        "${GLEW}")
 
 add_subdirectory(src)

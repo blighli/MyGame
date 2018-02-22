@@ -4,6 +4,9 @@
 build/**
 !build/ReadMe.TXT
 
+bin/**
+!bin/ReadMe.TXT
+
 cmake-build-*
 
 # Compiled Object files
