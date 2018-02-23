@@ -22,14 +22,28 @@ void Render()
     glEnd();
 }
 
+void error_callback(int error, const char* description)
+{
+    cout<<"Error: "<<description<<endl;
+}
+
 int main()
 {
+    //初始化glfw
     if (!glfwInit())
     {
         cout<<"glfwInit failed!"<<endl;
         return -1;
     }
 
+    //设置错误处理函数
+    glfwSetErrorCallback(error_callback);
+
+    //设置OpenGL版本
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+
+    //创建窗口
     GLFWwindow* window = glfwCreateWindow(800, 600, "Main Window", nullptr, nullptr);
     if (!window)
     {
@@ -38,17 +52,21 @@ int main()
         return -1;
     }
 
+    //创建Context
     glfwMakeContextCurrent(window);
 
+    //只能创建Context后才能初始化glew
     GLenum err = glewInit();
     if (GLEW_OK != err)
     {
         cout<<"Error: "<<glewGetErrorString(err)<<endl;
+        return -1;
     }
     else{
         cout<<"Status: Using GLEW"<<glewGetString(GLEW_VERSION)<<endl;
     }
 
+    //处理事件
     while (!glfwWindowShouldClose(window))
     {
         Render();
@@ -56,6 +74,9 @@ int main()
         glfwPollEvents();
     }
 
+    //清理glfw资源
+    glfwDestroyWindow(window);
     glfwTerminate();
+
     return 0;
 }
