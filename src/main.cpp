@@ -1,61 +1,58 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <cstdio>
+#include <cstddef>
+#include <iostream>
 
-void Render(void)
+using namespace std;
+
+void Render()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_TRIANGLES);
     {
-        glColor3f(1.0,0.0,0.0);
-        glVertex2f(0, .5);
-        glColor3f(0.0,1.0,0.0);
-        glVertex2f(-.5,-.5);
-        glColor3f(0.0, 0.0, 1.0);
-        glVertex2f(.5, -.5);
+        glColor3f(1.0f,0.0f,0.0f);
+        glVertex2f(0.0f, 0.5f);
+        glColor3f(0.0f,1.0f,0.0f);
+        glVertex2f(-0.5f,-0.5f);
+        glColor3f(0.0f, 0.0f, 1.0f);
+        glVertex2f(0.5f, -0.5f);
     }
     glEnd();
 }
 
 int main()
 {
-    GLFWwindow* window;
-
-    /* Initialize the library */
     if (!glfwInit())
+    {
+        cout<<"glfwInit failed!"<<endl;
         return -1;
+    }
 
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "Main Window", nullptr, nullptr);
     if (!window)
     {
+        cout<<"glfwCreateWindow failed!"<<endl;
         glfwTerminate();
         return -1;
     }
 
-    /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
     GLenum err = glewInit();
     if (GLEW_OK != err)
     {
-        /* Problem: glewInit failed, something is seriously wrong. */
-        fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+        cout<<"Error: "<<glewGetErrorString(err)<<endl;
     }
-    fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+    else{
+        cout<<"Status: Using GLEW"<<glewGetString(GLEW_VERSION)<<endl;
+    }
 
-    /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-        /* Render here */
         Render();
-
-        /* Swap front and back buffers */
         glfwSwapBuffers(window);
-
-        /* Poll for and process events */
         glfwPollEvents();
     }
 
