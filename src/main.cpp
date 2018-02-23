@@ -4,10 +4,15 @@
 #include <cstddef>
 #include <iostream>
 
+#include "render.h"
+
 using namespace std;
 
 void Render()
 {
+    double time = glfwGetTime();
+    cout<<"Status: Reander Time: "<<time<<endl;
+
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_TRIANGLES);
@@ -88,12 +93,18 @@ int main()
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
 
+    glfwSwapInterval(1);
+
+    setup();
+
     //处理事件
     while (!glfwWindowShouldClose(window))
     {
-        Render();
+        //Render();
+        render(window);
         glfwSwapBuffers(window);
         glfwPollEvents();
+        //glfwWaitEvents();
     }
 
     //清理glfw资源
