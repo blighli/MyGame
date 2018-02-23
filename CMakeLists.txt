@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.9)
 
 set (CMAKE_CXX_STANDARD 11)
 
-project(MyGame)
-
 include_directories(include)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  "${PROJECT_SOURCE_DIR}/bin")
@@ -30,6 +28,8 @@ if (MINGW)
     find_library(GLEW NAMES libglew32.a PATHS lib/mingw)
 endif()
 
+add_definitions(-DGLEW_STATIC)
+
 find_package(OpenGL)
 
 list(APPEND LIBS
@@ -38,3 +38,4 @@ list(APPEND LIBS
         "${OPENGL_LIBRARIES}")
 
 add_subdirectory(src)
+add_subdirectory(project01)
