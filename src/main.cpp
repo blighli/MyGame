@@ -27,6 +27,22 @@ void error_callback(int error, const char* description)
     cout<<"Error: "<<description<<endl;
 }
 
+void window_close_callback(GLFWwindow* window){
+    cout<<"Status: Close window: "<<"Main Window"<<endl;
+    //glfwSetWindowShouldClose(window, GLFW_FALSE);
+}
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+}
+
+void size_callback(GLFWwindow* window, int width, int height){
+    glViewport(0, 0, width, height);
+    cout<<"Status: Window width="<<width<<",height="<<height<<endl;
+}
+
+
 int main()
 {
     //初始化glfw
@@ -35,9 +51,6 @@ int main()
         cout<<"glfwInit failed!"<<endl;
         return -1;
     }
-
-    //设置错误处理函数
-    glfwSetErrorCallback(error_callback);
 
     //设置OpenGL版本
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -65,6 +78,15 @@ int main()
     else{
         cout<<"Status: Using GLEW"<<glewGetString(GLEW_VERSION)<<endl;
     }
+    //设置各种回调函数
+    glfwSetErrorCallback(error_callback);
+    glfwSetWindowCloseCallback(window, window_close_callback);
+    glfwSetKeyCallback(window, key_callback);
+    glfwSetFramebufferSizeCallback(window, size_callback);
+
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+    glViewport(0, 0, width, height);
 
     //处理事件
     while (!glfwWindowShouldClose(window))
