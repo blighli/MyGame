@@ -4,11 +4,11 @@ set (CMAKE_CXX_STANDARD 11)
 
 include_directories(include)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  "${PROJECT_SOURCE_DIR}/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  "${CMAKE_SOURCE_DIR}/bin")
 
 if (APPLE)
-find_library(GLFW NAMES libglfw3.a PATHS lib/apple)
-find_library(GLEW NAMES libGLEW.a PATHS lib/apple)
+    find_library(GLFW NAMES libglfw3.a PATHS lib/apple)
+    find_library(GLEW NAMES libGLEW.a PATHS lib/apple)
     find_library(COCOA_FRAMEWORK Cocoa)
     find_library(IOKIT_FRAMEWORK IOKit)
     find_library(CORE_FOUNDATION_FRAMEWORK CoreFoundation)
