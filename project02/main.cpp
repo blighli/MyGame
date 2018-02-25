@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 #include <iostream>
 #include "Shader.h"
 
@@ -23,8 +24,8 @@ void Render()
 
 int main()
 {
-    string str = ReadFile("C:\\Users\\liqilei\\Desktop\\MyGame\\project02\\main.cpp");
-    cout<<str<<endl;
+    glm::vec2 v2(1,2);
+    cout<<"v2=("<<v2.x<<","<<v2.y<<")"<<endl;
 
     //初始化glfw
     if (!glfwInit())
