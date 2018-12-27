@@ -1,4 +1,3 @@
-#define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <cstddef>
@@ -80,9 +79,15 @@ int main()
         return -1;
     }
 
+    //设置各种回调函数
+    glfwSetErrorCallback(error_callback);
+
     //设置OpenGL版本
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 
     //创建窗口
     GLFWwindow* window = glfwCreateWindow(800, 600, "Main Window", nullptr, nullptr);
@@ -106,8 +111,7 @@ int main()
     else{
         cout<<"Status: Using GLEW"<<glewGetString(GLEW_VERSION)<<endl;
     }
-    //设置各种回调函数
-    glfwSetErrorCallback(error_callback);
+
     glfwSetWindowCloseCallback(window, window_close_callback);
     glfwSetKeyCallback(window, key_callback);
     glfwSetFramebufferSizeCallback(window, size_callback);
@@ -115,22 +119,18 @@ int main()
     glfwSetCursorPosCallback(window, cursor_pos_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
 
-    int width, height;
-    glfwGetFramebufferSize(window, &width, &height);
-    glViewport(0, 0, width, height);
-
     glfwSwapInterval(1);
 
-    setup();
+    //setup();
 
     //处理事件
     while (!glfwWindowShouldClose(window))
     {
-        //Render();
-        render(window);
+        Render();
+        //render(window);
         glfwSwapBuffers(window);
-        glfwPollEvents();
-        //glfwWaitEvents();
+        //glfwPollEvents();
+        glfwWaitEvents();
     }
 
     //清理glfw资源

@@ -38,5 +38,3 @@ list(APPEND LIBS
         "${OPENGL_LIBRARIES}")
 
 add_subdirectory(src)
-add_subdirectory(project01)
-add_subdirectory(project02)
