@@ -1,7 +1,7 @@
 //
 // Created by liqilei on 2018/2/24.
 //
-#define GLEW_STATIC
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "render.h"
