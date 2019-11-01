@@ -1,5 +1,3 @@
-project(MyGame)
-
 set(SOURCE_FILES main.cpp render.cpp render.h events.cpp events.h)
 
 #add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SOURCE_FILES})
