@@ -1,7 +1,8 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <cstddef>
 #include <iostream>
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include "render.h"
 #include "events.h"
@@ -13,11 +14,11 @@ int main()
     //初始化glfw
     if (!glfwInit())
     {
-        cout<<"glfwInit failed!"<<endl;
+        cout<<"Error: glfwInit failed!"<<endl;
         return -1;
     }
 
-    //设置各种回调函数
+    //设置出错回调函数
     glfwSetErrorCallback(error_callback);
 
     //设置OpenGL版本
@@ -28,10 +29,10 @@ int main()
 
 
     //创建窗口
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Main Window", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
     if (!window)
     {
-        cout<<"glfwCreateWindow failed!"<<endl;
+        cout<<"Error: glfwCreateWindow failed!"<<endl;
         glfwTerminate();
         return -1;
     }

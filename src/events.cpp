@@ -12,9 +12,10 @@ void error_callback(int error, const char* description)
 }
 
 void window_close_callback(GLFWwindow* window){
-    cout<<"Status: Close window: "<<"Main Window"<<endl;
+    cout<<"Status:Close window"<<endl;
     //glfwSetWindowShouldClose(window, GLFW_FALSE);
 }
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     cout<<"Status: Key Pressed: "<<key<<endl;
@@ -28,9 +29,9 @@ void size_callback(GLFWwindow* window, int width, int height){
 
 void drop_callback(GLFWwindow* window, int count, const char** paths)
 {
-    int i;
-    for (i = 0;  i < count;  i++)
+    for (int i = 0;  i < count;  i++) {
         cout<<"Status: Filename = "<<paths[i]<<endl;
+    }
 }
 
 void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
