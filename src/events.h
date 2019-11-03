@@ -8,6 +8,8 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 
+void showFPS(GLFWwindow* window);
+
 void error_callback(int error, const char* description);
 void window_close_callback(GLFWwindow* window);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);

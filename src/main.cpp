@@ -46,19 +46,30 @@ int main()
         std::cout<<"Status: Using GLEW"<<glewGetString(GLEW_VERSION)<<std::endl;
     }
 
-    glfwSetWindowCloseCallback(window, window_close_callback);
+    //键盘按键
     glfwSetKeyCallback(window, key_callback);
-    glfwSetFramebufferSizeCallback(window, size_callback);
-    glfwSetDropCallback(window, drop_callback);
-    glfwSetCursorPosCallback(window, cursor_pos_callback);
+    //鼠标按键
     glfwSetMouseButtonCallback(window, mouse_button_callback);
+    //鼠标移动
+    glfwSetCursorPosCallback(window, cursor_pos_callback);
+    //窗口大小改变
+    glfwSetFramebufferSizeCallback(window, size_callback);
+    //文件拖拽到窗口
+    glfwSetDropCallback(window, drop_callback);
+    //窗口关闭
+    glfwSetWindowCloseCallback(window, window_close_callback);
 
-    glfwSwapInterval(1);
+    //glfwSwapInterval(1);
 
     //处理事件
     while (!glfwWindowShouldClose(window))
     {
+        showFPS(window);
+
         glfwPollEvents();
+
+        glClearColor(0.23f, 0.38f, 0.47f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         glfwSwapBuffers(window);
     }
