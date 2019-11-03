@@ -1,38 +1,33 @@
-#include <cstddef>
 #include <iostream>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "render.h"
 #include "events.h"
-
-using namespace std;
 
 int main()
 {
     //初始化glfw
     if (!glfwInit())
     {
-        cout<<"Error: glfwInit failed!"<<endl;
+        std::cerr<<"GLFW initialization failed!"<<std::endl;
         return -1;
     }
 
-    //设置出错回调函数
+    //设置各种回调函数
     glfwSetErrorCallback(error_callback);
 
     //设置OpenGL版本
-    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     //创建窗口
-    GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(800, 600, "Main Window", nullptr, nullptr);
     if (!window)
     {
-        cout<<"Error: glfwCreateWindow failed!"<<endl;
+        std::cerr<<"GLFW create window failed!"<< std::endl;
         glfwTerminate();
         return -1;
     }
@@ -44,11 +39,11 @@ int main()
     GLenum err = glewInit();
     if (GLEW_OK != err)
     {
-        cout<<"Error: "<<glewGetErrorString(err)<<endl;
+        std::cout<<"Error: "<<glewGetErrorString(err)<< std::endl;
         return -1;
     }
     else{
-        cout<<"Status: Using GLEW"<<glewGetString(GLEW_VERSION)<<endl;
+        std::cout<<"Status: Using GLEW"<<glewGetString(GLEW_VERSION)<<std::endl;
     }
 
     glfwSetWindowCloseCallback(window, window_close_callback);
@@ -60,15 +55,12 @@ int main()
 
     glfwSwapInterval(1);
 
-    //setup();
-
     //处理事件
     while (!glfwWindowShouldClose(window))
     {
-        //render(window);
+        glfwPollEvents();
+
         glfwSwapBuffers(window);
-        //glfwPollEvents();
-        glfwWaitEvents();
     }
 
     //清理glfw资源
