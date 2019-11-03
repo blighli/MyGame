@@ -55,6 +55,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 void size_callback(GLFWwindow* window, int width, int height){
     cout<<"Status: Window width="<<width<<",height="<<height<<endl;
+    glViewport(0, 0, width, height);
 }
 
 void drop_callback(GLFWwindow* window, int count, const char** paths)
