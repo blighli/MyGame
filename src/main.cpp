@@ -5,6 +5,9 @@
 
 #include "events.h"
 
+const char* WINDOW_TITLE = "Main Window";
+bool gFullScreen = false;
+
 int main()
 {
     //初始化glfw
@@ -24,7 +27,20 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     //创建窗口
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Main Window", nullptr, nullptr);
+    GLFWwindow *window = NULL;
+    if(gFullScreen)
+    {
+        GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+        const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+        if(mode)
+        {
+            window = glfwCreateWindow(mode->width, mode->height, WINDOW_TITLE, monitor, NULL);
+        }
+    }
+    else
+    {
+        window = glfwCreateWindow(800, 600, WINDOW_TITLE, NULL, NULL);
+    }
     if (!window)
     {
         std::cerr<<"GLFW create window failed!"<< std::endl;
