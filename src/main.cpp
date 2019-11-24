@@ -141,8 +141,8 @@ int main()
 
         glfwPollEvents();
 
-        glClearColor(0.23f, 0.38f, 0.47f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        static const float bgColor[] = {0.23f, 0.38f, 0.47f, 1.0f};
+        glClearBufferfv(GL_COLOR, 0, bgColor);
 
         glBindVertexArray(vao);
 
