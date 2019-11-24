@@ -8,6 +8,26 @@
 const char* WINDOW_TITLE = "Main Window";
 bool gFullScreen = false;
 
+static const GLchar* ReadShader(const char* filename){
+    FILE* file =  fopen(filename, "rb");
+    if (!file)
+    {
+        std::cerr<<"ReadShader failed!"<<std::endl;
+        return NULL;
+    }
+    fseek( file, 0, SEEK_END );
+    int len = ftell( file );
+    fseek( file, 0, SEEK_SET );
+
+    GLchar* source = new GLchar[len+1];
+    fread( source, 1, len, file );
+    fclose( file );
+
+    source[len] = 0;
+
+    return const_cast<const GLchar*>(source);
+}
+
 int main()
 {
     //初始化glfw
@@ -82,6 +102,23 @@ int main()
             0.5f, -0.5f, 0.0f,
             -0.5f, -0.5f, 0.0f
     };
+
+    const GLchar* vShaderSource = ReadShader("media/shader/vertex.shader");
+    const GLchar* fShaderSource = ReadShader("media/shader/fragment.shader");
+
+    GLuint program = glCreateProgram();
+    GLuint shader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource( shader, 1, &vShaderSource, NULL );
+    glCompileShader( shader );
+    glAttachShader( program, shader );
+
+    shader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource( shader, 1, &fShaderSource, NULL );
+    glCompileShader( shader );
+    glAttachShader( program, shader );
+
+    glLinkProgram( program );
+    glUseProgram( program);
 
     GLuint vbo;
     GLuint vao;
