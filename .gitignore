@@ -4,8 +4,7 @@
 build/**
 !build/ReadMe.TXT
 
-bin/**
-!bin/ReadMe.TXT
+bin/MyGame*
 
 cmake-build-*
 
