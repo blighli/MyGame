@@ -77,6 +77,26 @@ int main()
 
     //glfwSwapInterval(1);
 
+    GLfloat vertices[] = {
+            0.0f, 0.5f, 0.f,
+            0.5f, -0.5f, 0.0f,
+            -0.5f, -0.5f, 0.0f
+    };
+
+    GLuint vbo;
+    GLuint vao;
+
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glEnableVertexAttribArray(0);
+
+
     //处理事件
     while (!glfwWindowShouldClose(window))
     {
@@ -86,6 +106,12 @@ int main()
 
         glClearColor(0.23f, 0.38f, 0.47f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glBindVertexArray(vao);
+
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        glBindVertexArray(0);
 
         glfwSwapBuffers(window);
     }
