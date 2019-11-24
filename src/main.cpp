@@ -98,9 +98,9 @@ int main()
     //glfwSwapInterval(1);
 
     GLfloat vertices[] = {
-            0.0f, 0.5f, 0.f,
-            0.5f, -0.5f, 0.0f,
-            -0.5f, -0.5f, 0.0f
+            0.0f, 0.5f, 0.f, 1.0f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f
     };
 
     const GLchar* vShaderSource = ReadShader("media/shader/vertex.shader");
@@ -130,8 +130,11 @@ int main()
     glBindVertexArray(vao);
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, NULL);
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, (GLvoid*)(sizeof(GLfloat) * 3));
+    glEnableVertexAttribArray(1);
 
 
     //处理事件
