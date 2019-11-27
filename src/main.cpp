@@ -9,26 +9,6 @@
 const char* WINDOW_TITLE = "Main Window";
 bool gFullScreen = false;
 
-static const GLchar* ReadShader(const char* filename){
-    FILE* file =  fopen(filename, "rb");
-    if (!file)
-    {
-        std::cerr<<"ReadShader failed!"<<std::endl;
-        return NULL;
-    }
-    fseek( file, 0, SEEK_END );
-    int len = ftell( file );
-    fseek( file, 0, SEEK_SET );
-
-    GLchar* source = new GLchar[len+1];
-    fread( source, 1, len, file );
-    fclose( file );
-
-    source[len] = 0;
-
-    return const_cast<const GLchar*>(source);
-}
-
 int main()
 {
     //初始化glfw
