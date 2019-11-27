@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "events.h"
+#include "ShaderProgram.h"
 
 const char* WINDOW_TITLE = "Main Window";
 bool gFullScreen = false;
@@ -103,22 +104,10 @@ int main()
             -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f
     };
 
-    const GLchar* vShaderSource = ReadShader("media/shader/vertex.shader");
-    const GLchar* fShaderSource = ReadShader("media/shader/fragment.shader");
-
-    GLuint program = glCreateProgram();
-    GLuint shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource( shader, 1, &vShaderSource, NULL );
-    glCompileShader( shader );
-    glAttachShader( program, shader );
-
-    shader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource( shader, 1, &fShaderSource, NULL );
-    glCompileShader( shader );
-    glAttachShader( program, shader );
-
-    glLinkProgram( program );
-    glUseProgram( program);
+    ShaderProgram program;
+    program.loadShader(GL_VERTEX_SHADER, "media/shader/vertex.shader");
+    program.loadShader(GL_FRAGMENT_SHADER, "media/shader/fragment.shader");
+    program.use();
 
     GLuint vbo;
     GLuint vao;
