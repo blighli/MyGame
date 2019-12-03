@@ -36,13 +36,18 @@ int main()
     GLuint vbo;
     GLuint vao;
 
-    glCreateBuffers(1, &vbo);
-    glNamedBufferStorage(vbo, sizeof(vertices), vertices, 0);
+    //glCreateBuffers(1, &vbo);
+    //glNamedBufferStorage(vbo, sizeof(vertices), vertices, 0);
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glCreateVertexArrays(1, &vao);
+    //glCreateVertexArrays(1, &vao);
+    glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, NULL);
     glEnableVertexAttribArray(0);
 
