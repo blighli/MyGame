@@ -15,6 +15,7 @@ public:
     GLuint getVertexNumber() const;
     GLfloat *getVertices() const;
     void loadObject(const char* fileName);
+    void createSphere();
 public:
     ModelObject();
 };

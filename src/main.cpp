@@ -31,11 +31,12 @@ int main()
 
     ModelObject object;
     object.loadObject("media/object/triangle.txt");
+    //object.createSphere();
     GLuint  vertexNumber = object.getVertexNumber();
     GLfloat* vertices = object.getVertices();
-    for(int i=0; i<vertexNumber*6; i++){
-        std::cout << "Data" << i << " " << vertices[i] << std::endl;
-    }
+    //for(int i=0; i<vertexNumber*6; i++){
+    //    std::cout << "Data" << i << " " << vertices[i] << std::endl;
+    //}
 
     ShaderProgram program;
     program.loadShader(GL_VERTEX_SHADER, "media/shader/vertex.shader");
