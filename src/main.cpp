@@ -5,6 +5,7 @@
 
 #include "WindowManager.h"
 #include "ShaderProgram.h"
+#include "ModelObject.h"
 
 int main()
 {
@@ -22,11 +23,19 @@ int main()
         std::cout<<"Status: Using GLEW"<<glewGetString(GLEW_VERSION)<<std::endl;
     }
 
-    GLfloat vertices[] = {
-            0.0f, 0.5f, 0.f, 1.0f, 0.0f, 0.0f,
-            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f
-    };
+//    GLfloat vertices[] = {
+//            0.0f, 0.5f, 0.f, 1.0f, 0.0f, 0.0f,
+//            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+//            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+//    };
+
+    ModelObject object;
+    object.loadObject("media/object/triangle.txt");
+    GLuint  vertexNumber = object.getVertexNumber();
+    GLfloat* vertices = object.getVertices();
+    for(int i=0; i<vertexNumber*6; i++){
+        std::cout << "Data" << i << " " << vertices[i] << std::endl;
+    }
 
     ShaderProgram program;
     program.loadShader(GL_VERTEX_SHADER, "media/shader/vertex.shader");
@@ -40,7 +49,7 @@ int main()
     //glNamedBufferStorage(vbo, sizeof(vertices), vertices, 0);
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER,sizeof(GLfloat) * vertexNumber * 6, vertices, GL_STATIC_DRAW);
 
     //glCreateVertexArrays(1, &vao);
     glGenVertexArrays(1, &vao);

@@ -1,4 +1,4 @@
-set(SOURCE_FILES main.cpp render.cpp render.h ShaderProgram.cpp ShaderProgram.h WindowManager.cpp WindowManager.h)
+set(SOURCE_FILES main.cpp render.cpp render.h ShaderProgram.cpp ShaderProgram.h WindowManager.cpp WindowManager.h ModelObject.cpp ModelObject.h)
 
 #add_executable(${PROJECT_NAME} WIN32 MACOSX_BUNDLE ${SOURCE_FILES})
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

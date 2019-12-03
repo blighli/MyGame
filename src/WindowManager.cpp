@@ -164,7 +164,7 @@ void drop_callback(GLFWwindow* window, int count, const char** paths)
 
 void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    cout<<"Status: Mouse Move X="<<xpos<<",Y="<<ypos<<endl;
+    //cout<<"Status: Mouse Move X="<<xpos<<",Y="<<ypos<<endl;
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
