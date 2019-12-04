@@ -24,6 +24,7 @@ WindowManager::WindowManager(bool fullScreen, int width, int height, const char*
     this->height = height;
     this->title = title;
     window = NULL;
+    wireFrame = false;
 }
 
 int WindowManager::init() {
@@ -145,9 +146,23 @@ void window_close_callback(GLFWwindow* window){
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+    static bool wireFrame = false;
     cout<<"Status: Key Pressed = "<<key<<endl;
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GLFW_TRUE);
+
+    if (key == GLFW_KEY_W && action == GLFW_PRESS){
+
+        wireFrame = !wireFrame;
+        if(wireFrame){
+
+            glEnable( GL_POLYGON_OFFSET_FILL );
+            glPolygonOffset(0.1,0.2);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        } else{
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        }
+    }
 }
 
 void size_callback(GLFWwindow* window, int width, int height){

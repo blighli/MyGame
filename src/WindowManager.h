@@ -24,6 +24,7 @@ public:
 
 private:
     bool fullScreen;
+    bool wireFrame;
     int width;
     int height;
     const char* title;
