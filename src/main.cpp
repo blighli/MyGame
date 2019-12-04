@@ -23,20 +23,11 @@ int main()
         std::cout<<"Status: Using GLEW"<<glewGetString(GLEW_VERSION)<<std::endl;
     }
 
-//    GLfloat vertices[] = {
-//            0.0f, 0.5f, 0.f, 1.0f, 0.0f, 0.0f,
-//            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-//            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f
-//    };
-
     ModelObject object;
     object.loadObject("media/object/triangle.txt");
     //object.createSphere();
     GLuint  vertexNumber = object.getVertexNumber();
     GLfloat* vertices = object.getVertices();
-    //for(int i=0; i<vertexNumber*6; i++){
-    //    std::cout << "Data" << i << " " << vertices[i] << std::endl;
-    //}
 
     ShaderProgram program;
     program.loadShader(GL_VERTEX_SHADER, "media/shader/vertex.shader");
@@ -56,8 +47,6 @@ int main()
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
-
-
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 6, NULL);
     glEnableVertexAttribArray(0);
 
@@ -75,7 +64,7 @@ int main()
 
         glBindVertexArray(vao);
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, vertexNumber);
 
         glBindVertexArray(0);
 
