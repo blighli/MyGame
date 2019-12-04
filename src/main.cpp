@@ -47,7 +47,7 @@ void draw(ModelObject& object) {
         glDrawArrays(GL_TRIANGLES, 0, object.getVertexCount());
     }
     else{
-        glDrawElements(GL_TRIANGLES, object.getIndexCount(), GL_UNSIGNED_INT,  (GLvoid *)(object.getIndices()));
+        glDrawElements(GL_TRIANGLES, object.getIndexCount(), GL_UNSIGNED_INT,  0);
     }
 }
 
