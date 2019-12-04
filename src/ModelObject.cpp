@@ -12,7 +12,7 @@ ModelObject::ModelObject(){
     vertexCount = 0;
     vertices = NULL;
     colors = NULL;
-    elements = NULL;
+    indices = NULL;
 }
 int ModelObject::getObjectId() const {
     return objectId;
@@ -38,8 +38,8 @@ float *ModelObject::getColors() const {
     return colors;
 }
 
-int *ModelObject::getElements() const {
-    return elements;
+int *ModelObject::getIndices() const {
+    return indices;
 }
 
 void ModelObject::loadObject(const char *fileName) {
@@ -161,6 +161,10 @@ void ModelObject::createMat() {
         }
     }
 
+}
+
+int ModelObject::getIndexCount() const {
+    return indexCount;
 }
 
 
