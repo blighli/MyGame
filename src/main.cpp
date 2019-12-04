@@ -8,34 +8,30 @@
 #include "ModelObject.h"
 
 void prepare(ModelObject& object){
+
     GLuint vao;
-    //glCreateVertexArrays(1, &vao);
     glGenVertexArrays(1, &vao);
     object.setObjectId(vao);
     glBindVertexArray(object.getObjectId());
 
-    GLuint vbo;
-    //glCreateBuffers(1, &vbo);
-    //glNamedBufferStorage(vbo, sizeof(vertices), vertices, 0);
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-    int vertexBufferSize = sizeof(GLfloat) * object.getVertexCount() * 3;
-    int colorBufferSize = 0;
-    if(object.getColors() != NULL){
-        colorBufferSize = sizeof(GLfloat) * object.getVertexCount() * 3;
+
+    if(object.getVertices() != NULL) {
+        GLuint vbo;
+        glGenBuffers(1, &vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        int vertexBufferSize = sizeof(GLfloat) * object.getVertexCount() * 3;
+        glBufferData(GL_ARRAY_BUFFER, vertexBufferSize, object.getVertices(), GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *) (0));
+        glEnableVertexAttribArray(0);
     }
-    int bufferSize = vertexBufferSize + colorBufferSize;
-
-    glBufferData(GL_ARRAY_BUFFER, bufferSize, NULL, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, vertexBufferSize, object.getVertices());
-    glBufferSubData(GL_ARRAY_BUFFER, vertexBufferSize, colorBufferSize, object.getColors());
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *) (0));
-    glEnableVertexAttribArray(0);
-
-    if(object.getColors() != NULL) {
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *) (vertexBufferSize));
+    if(object.getColors() != NULL){
+        GLuint cbo;
+        glGenBuffers(1, &cbo);
+        glBindBuffer(GL_ARRAY_BUFFER, cbo);
+        int colorBufferSize = sizeof(GLfloat) * object.getVertexCount() * 3;
+        glBufferData(GL_ARRAY_BUFFER, colorBufferSize, object.getColors(), GL_STATIC_DRAW);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *) (0));
         glEnableVertexAttribArray(1);
     }
 }
