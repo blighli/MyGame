@@ -14,8 +14,6 @@ void prepare(ModelObject& object){
     object.setObjectId(vao);
     glBindVertexArray(object.getObjectId());
 
-
-
     if(object.getVertices() != NULL) {
         GLuint vbo;
         glGenBuffers(1, &vbo);
@@ -33,6 +31,23 @@ void prepare(ModelObject& object){
         glBufferData(GL_ARRAY_BUFFER, colorBufferSize, object.getColors(), GL_STATIC_DRAW);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *) (0));
         glEnableVertexAttribArray(1);
+    }
+    if(object.getIndices() != NULL){
+        GLuint ibo;
+        glGenBuffers(1, &ibo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+        int indexBufferSize = sizeof(int) * object.getIndexCount();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBufferSize, object.getIndices(), GL_STATIC_DRAW);
+    }
+}
+
+void draw(ModelObject& object) {
+    glBindVertexArray(object.getObjectId());
+    if(object.getIndices() == NULL){
+        glDrawArrays(GL_TRIANGLES, 0, object.getVertexCount());
+    }
+    else{
+        glDrawElements(GL_TRIANGLES, object.getIndexCount(), GL_UNSIGNED_INT,  (GLvoid *)(object.getIndices()));
     }
 }
 
@@ -77,14 +92,8 @@ int main()
         glClearBufferfv(GL_DEPTH, 0, &depth);
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-        glBindVertexArray(object.getObjectId());
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, object.getVertexCount());
-
-        glBindVertexArray(mat.getObjectId());
-        glDrawArrays(GL_TRIANGLES, 0, mat.getVertexCount());
-
-        glBindVertexArray(0);
+        draw(object);
+        draw(mat);
 
         glfwSwapBuffers(windowManager.getWindow());
     }

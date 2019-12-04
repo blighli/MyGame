@@ -13,7 +13,7 @@ public:
     void setObjectId(int objectId);
     int getObjectId() const;
     int getVertexCount() const;
-    int *getElements() const;
+    int *getIndices() const;
     float *getVertices() const;
     float *getColors() const;
     void loadObject(const char* fileName);
@@ -24,9 +24,14 @@ public:
 
 private:
     int vertexCount;
+    int indexCount;
+public:
+    int getIndexCount() const;
+
+private:
     float* vertices;
     float* colors;
-    int* elements;
+    int* indices;
     std::string name;
     int objectId;
     int drawMode;

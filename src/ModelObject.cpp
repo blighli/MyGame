@@ -64,6 +64,16 @@ void ModelObject::loadObject(const char *fileName) {
         fscanf(file, "%f", &colors[i]);
     }
 
+    fscanf(file, "%d", &indexCount);
+    if(indexCount > 0)
+    {
+        indices = new int[indexCount];
+        for(int i=0; i < indexCount; i++){
+            fscanf(file, "%d", &indices[i]);
+            std::cout<<"indices="<<indices[i]<< std::endl;
+        }
+    }
+
     fclose(file);
 }
 
