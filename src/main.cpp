@@ -86,7 +86,7 @@ int main()
         glDrawArrays(GL_TRIANGLE_STRIP, 0, object.getVertexCount());
 
         glBindVertexArray(mat.getObjectId());
-        glDrawArrays(GL_LINE_STRIP, 0, mat.getVertexCount());
+        glDrawArrays(GL_TRIANGLES, 0, mat.getVertexCount());
 
         glBindVertexArray(0);
 

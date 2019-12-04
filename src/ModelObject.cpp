@@ -104,18 +104,60 @@ void ModelObject::createSphere() {
 void ModelObject::createMat() {
     int rows = 10;
     int cols = 10;
-    vertexCount = rows * cols;
+    float width = 2.0f;
+    float height = 2.0f;
+
+    vertexCount = (rows) * (cols) * 6;
     vertices = new float[vertexCount * 3];
     colors = new float[vertexCount * 3];
-    for(int i=0; i< rows; i++){
+    int vertexIndex = 0;
+    int colorIndex = 0;
+    float xMin = -width/2;
+    float yMin = -height/2;
+    float xStep = width/cols;
+    float yStep = height/rows;
+    for(int i=0; i<rows; i++){
         for(int j=0; j<cols; j++){
-            vertices[(i * cols + j) * 3 + 0] = 2.0 / cols * j - 1.0;
-            vertices[(i * cols + j) * 3 + 1] = 2.0 / rows * i - 1.0;
-            vertices[(i * cols + j) * 3 + 2] = 0.1;
 
-            colors[(i * cols + j) * 3 + 0] = 1.0;
-            colors[(i * cols + j) * 3 + 1] = 1.0;
-            colors[(i * cols + j) * 3 + 2] = 1.0;
+            float xBase = xMin + xStep*j;
+            float yBase = yMin + yStep*i;
+
+            vertices[vertexIndex++] = xBase;
+            vertices[vertexIndex++] = yBase;
+            vertices[vertexIndex++] = 0.1;
+
+            vertices[vertexIndex++] = xBase + xStep;
+            vertices[vertexIndex++] = yBase;
+            vertices[vertexIndex++] = 0.1;
+
+            vertices[vertexIndex++] = xBase;
+            vertices[vertexIndex++] = yBase + yStep;
+            vertices[vertexIndex++] = 0.1;
+
+            vertices[vertexIndex++] = xBase + xStep;
+            vertices[vertexIndex++] = yBase;
+            vertices[vertexIndex++] = 0.1;
+
+            vertices[vertexIndex++] = xBase;
+            vertices[vertexIndex++] = yBase + yStep;
+            vertices[vertexIndex++] = 0.1;
+
+            vertices[vertexIndex++] = xBase + xStep;
+            vertices[vertexIndex++] = yBase + yStep;
+            vertices[vertexIndex++] = 0.1;
+
+            float colorValue = 1.0;
+            if(i%2 == 0 && j%2 != 0 || i%2 != 0 && j%2 == 0)
+            {
+                colorValue = 0.0;
+            }
+            for(int k=0; k<6; k++)
+            {
+                colors[colorIndex++] = colorValue;
+                colors[colorIndex++] = colorValue;
+                colors[colorIndex++] = colorValue;
+            }
+
         }
     }
 
