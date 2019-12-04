@@ -5,19 +5,29 @@
 #ifndef MYGAME_MODELOBJECT_H
 #define MYGAME_MODELOBJECT_H
 
-
-#include <GL/gl.h>
+#include <string>
 
 class ModelObject {
-    GLuint vertexNumber;
-    GLfloat* vertices;
+
 public:
-    GLuint getVertexNumber() const;
-    GLfloat *getVertices() const;
+    void setObjectId(int objectId);
+    int getObjectId() const;
+    int getVertexCount() const;
+    int *getElements() const;
+    float *getVertices() const;
+    float *getColors() const;
     void loadObject(const char* fileName);
     void createSphere();
 public:
     ModelObject();
+
+private:
+    int vertexCount;
+    float* vertices;
+    float* colors;
+    int* elements;
+    std::string name;
+    int objectId;
 };
 
 

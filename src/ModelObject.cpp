@@ -7,16 +7,34 @@
 #include "glm/gtc/type_ptr.hpp"
 
 ModelObject::ModelObject(){
-    vertexNumber = 0;
+    objectId = 0;
+    vertexCount = 0;
     vertices = NULL;
+    colors = NULL;
+    elements = NULL;
+}
+int ModelObject::getObjectId() const {
+    return objectId;
 }
 
-GLuint ModelObject::getVertexNumber() const {
-    return vertexNumber;
+void ModelObject::setObjectId(int objectId) {
+    ModelObject::objectId = objectId;
 }
 
-GLfloat *ModelObject::getVertices() const {
+int ModelObject::getVertexCount() const {
+    return vertexCount;
+}
+
+float *ModelObject::getVertices() const {
     return vertices;
+}
+
+float *ModelObject::getColors() const {
+    return colors;
+}
+
+int *ModelObject::getElements() const {
+    return elements;
 }
 
 void ModelObject::loadObject(const char *fileName) {
@@ -27,12 +45,18 @@ void ModelObject::loadObject(const char *fileName) {
         return;
     }
 
-    fscanf(file, "%d", &vertexNumber);
+    fscanf(file, "%d", &vertexCount);
 
-    int dataNumber = vertexNumber * 6;
-    vertices = new GLfloat[dataNumber];
-    for(int i=0; i<dataNumber; i++){
+    int vertexSize = vertexCount * 3;
+    vertices = new float[vertexSize];
+    for(int i=0; i < vertexSize; i++){
         fscanf(file, "%f", &vertices[i]);
+    }
+
+    int colorSize = vertexCount * 3;
+    colors = new float[colorSize];
+    for(int i=0; i < colorSize; i++){
+        fscanf(file, "%f", &colors[i]);
     }
 
     fclose(file);
@@ -42,10 +66,10 @@ void ModelObject::createSphere() {
     int lats = 40;
     int longs = 40;
 
-    vertexNumber = lats * longs;
+    vertexCount = lats * longs;
 
-    int dataNumber = vertexNumber * 6;
-    vertices = new GLfloat[dataNumber];
+    int dataNumber = vertexCount * 6;
+    vertices = new float[dataNumber];
 
     for(int i = 0; i <= lats; i++) {
         double lat0 = glm::pi<double>() * (-0.5 + (double) (i - 1) / lats);
@@ -71,3 +95,7 @@ void ModelObject::createSphere() {
         }
     }
 }
+
+
+
+
