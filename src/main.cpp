@@ -7,7 +7,7 @@
 #include "ShaderProgram.h"
 #include "ModelObject.h"
 
-void prepare(ModelObject& object){
+void bindObject(ModelObject& object){
 
     GLuint vao;
     glGenVertexArrays(1, &vao);
@@ -41,7 +41,7 @@ void prepare(ModelObject& object){
     }
 }
 
-void draw(ModelObject& object) {
+void drawObject(ModelObject& object) {
     glBindVertexArray(object.getObjectId());
     if(object.getIndices() == NULL){
         glDrawArrays(GL_TRIANGLES, 0, object.getVertexCount());
@@ -69,11 +69,11 @@ int main()
 
     ModelObject object;
     object.loadObject("media/object/triangle.txt");
-    prepare(object);
+    bindObject(object);
 
     ModelObject mat;
     mat.createMat();
-    prepare(mat);
+    bindObject(mat);
 
     ShaderProgram program;
     program.loadShader(GL_VERTEX_SHADER, "media/shader/vertex.shader");
@@ -92,8 +92,8 @@ int main()
         glClearBufferfv(GL_DEPTH, 0, &depth);
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        draw(object);
-        draw(mat);
+        drawObject(object);
+        drawObject(mat);
 
         glfwSwapBuffers(windowManager.getWindow());
     }
