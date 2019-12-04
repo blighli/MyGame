@@ -8,6 +8,7 @@
 
 ModelObject::ModelObject(){
     objectId = 0;
+    drawMode = 0;
     vertexCount = 0;
     vertices = NULL;
     colors = NULL;
@@ -19,6 +20,10 @@ int ModelObject::getObjectId() const {
 
 void ModelObject::setObjectId(int objectId) {
     ModelObject::objectId = objectId;
+}
+
+int ModelObject::getDrawMode() const {
+    return drawMode;
 }
 
 int ModelObject::getVertexCount() const {
@@ -95,6 +100,27 @@ void ModelObject::createSphere() {
         }
     }
 }
+
+void ModelObject::createMat() {
+    int rows = 10;
+    int cols = 10;
+    vertexCount = rows * cols;
+    vertices = new float[vertexCount * 3];
+    colors = new float[vertexCount * 3];
+    for(int i=0; i< rows; i++){
+        for(int j=0; j<cols; j++){
+            vertices[(i * cols + j) * 3 + 0] = 2.0 / cols * j - 1.0;
+            vertices[(i * cols + j) * 3 + 1] = 2.0 / rows * i - 1.0;
+            vertices[(i * cols + j) * 3 + 2] = 0.1;
+
+            colors[(i * cols + j) * 3 + 0] = 1.0;
+            colors[(i * cols + j) * 3 + 1] = 1.0;
+            colors[(i * cols + j) * 3 + 2] = 1.0;
+        }
+    }
+
+}
+
 
 
 

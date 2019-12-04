@@ -18,6 +18,7 @@ public:
     float *getColors() const;
     void loadObject(const char* fileName);
     void createSphere();
+    void createMat();
 public:
     ModelObject();
 
@@ -28,6 +29,9 @@ private:
     int* elements;
     std::string name;
     int objectId;
+    int drawMode;
+public:
+    int getDrawMode() const;
 };
 
 
