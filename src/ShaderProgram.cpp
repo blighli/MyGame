@@ -34,6 +34,13 @@ void ShaderProgram::loadShader(GLenum shaderType, const char *fileName) {
     const char* source = loadSource(fileName);
     glShaderSource(shader, 1, &source, NULL);
     glCompileShader(shader);
+    GLint success = 0;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+    if(!success){
+        GLchar infoLog[512];
+        glGetShaderInfoLog(shader, 512, NULL, infoLog);
+        std::cerr<<"Shader Compile Error: " << infoLog << std::endl;
+    }
     glAttachShader(program, shader);
 }
 

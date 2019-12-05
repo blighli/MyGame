@@ -70,7 +70,6 @@ void ModelObject::loadObject(const char *fileName) {
         indices = new int[indexCount];
         for(int i=0; i < indexCount; i++){
             fscanf(file, "%d", &indices[i]);
-            std::cout<<"indices="<<indices[i]<< std::endl;
         }
     }
 
