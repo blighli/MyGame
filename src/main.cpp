@@ -6,6 +6,8 @@
 #include "WindowManager.h"
 #include "ShaderProgram.h"
 #include "ModelObject.h"
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
 
 void bindObject(ModelObject& object){
 
@@ -91,6 +93,12 @@ int main()
         static const float depth = 1.0;
         glClearBufferfv(GL_DEPTH, 0, &depth);
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        float rot = windowManager.getRot();
+
+        //glm::mat4 Projetion = glm::perspective(glm::pi<float>()*0.25, 4.0f/3.0f, 0.1f, 100.0f);
+       // glm::mat4 View = glm::translate(glm::mat4(1.0f), )
+
 
         drawObject(object);
         drawObject(mat);

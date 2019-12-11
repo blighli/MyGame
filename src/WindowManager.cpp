@@ -25,6 +25,9 @@ WindowManager::WindowManager(bool fullScreen, int width, int height, const char*
     this->title = title;
     window = NULL;
     wireFrame = false;
+
+    rot = 0;
+    distance = 1.0;
 }
 
 int WindowManager::init() {
@@ -65,6 +68,8 @@ int WindowManager::init() {
         return -1;
     }
 
+    glfwSetWindowUserPointer(window, (void*)this);
+
     //创建Context
     glfwMakeContextCurrent(window);
 
@@ -102,6 +107,38 @@ WindowManager::~WindowManager() {
 
 const char *WindowManager::getTitle() const {
     return title;
+}
+
+float WindowManager::getRot() const {
+    return rot;
+}
+
+void WindowManager::setRot(float rot) {
+    WindowManager::rot = rot;
+}
+
+float WindowManager::getDistance() const {
+    return distance;
+}
+
+void WindowManager::setDistance(float distance) {
+    WindowManager::distance = distance;
+}
+
+int WindowManager::getLastXpos() const {
+    return lastXpos;
+}
+
+void WindowManager::setLastXpos(int lastXpos) {
+    WindowManager::lastXpos = lastXpos;
+}
+
+int WindowManager::getLastYpos() const {
+    return lastYpos;
+}
+
+void WindowManager::setLastYpos(int lastYpos) {
+    WindowManager::lastYpos = lastYpos;
 }
 
 void showFPS(GLFWwindow* window)
@@ -179,16 +216,40 @@ void drop_callback(GLFWwindow* window, int count, const char** paths)
 
 void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    //cout<<"Status: Mouse Move X="<<xpos<<",Y="<<ypos<<endl;
+
+    int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+    if (state == GLFW_PRESS)
+    {
+        WindowManager* wm = (WindowManager*)glfwGetWindowUserPointer(window);
+        double dX = xpos - wm->getLastXpos();
+        double dY = ypos - wm->getLastYpos();
+        wm->setLastXpos(xpos);
+        wm->setLastYpos(ypos);
+
+        int width = 0;
+        int height = 0;
+        glfwGetWindowSize(window, &width, &height);
+
+        float rot = wm->getRot();
+        rot += dX / (float)width * 180.0;
+        if(rot > 360)
+            rot -= 360;
+        if(rot < 0)
+            rot +=360;
+        wm->setRot(rot);
+        cout<<"Status: Mouse Move rot="<< rot <<endl;
+    }
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
-        double xpos, ypos;
+        WindowManager* wm = (WindowManager*)glfwGetWindowUserPointer(window);
+        double xpos = 0, ypos = 0;
         glfwGetCursorPos(window, &xpos, &ypos);
-        cout<<"Status: Mouse Pressed X="<<xpos<<",Y="<<ypos<<endl;
+        wm->setLastXpos(xpos);
+        wm->setLastYpos(ypos);
     }
 }
 
