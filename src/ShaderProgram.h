@@ -15,6 +15,10 @@ public:
     void use();
 private:
     GLuint program;
+public:
+    GLuint getProgram() const;
+
+private:
     const char* loadSource(const char* fileName);
 };
 

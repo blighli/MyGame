@@ -52,3 +52,7 @@ void ShaderProgram::use() {
 ShaderProgram::~ShaderProgram() {
 
 }
+
+GLuint ShaderProgram::getProgram() const {
+    return program;
+}

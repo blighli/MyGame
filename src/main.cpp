@@ -95,10 +95,15 @@ int main()
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         float rot = windowManager.getRot();
+        //std::cout<<"rot = "<<rot<<std::endl;
 
-        //glm::mat4 Projetion = glm::perspective(glm::pi<float>()*0.25, 4.0f/3.0f, 0.1f, 100.0f);
-       // glm::mat4 View = glm::translate(glm::mat4(1.0f), )
+        glm::mat4 Proj = glm::perspective(glm::radians(45.0f), 4.0f/3.0f, 0.1f, 10.0f);
+        glm::mat4 View = glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::mat4 Model = glm::rotate(glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::mat4 MPV = Proj * View * Model;
 
+        GLint loc = glGetUniformLocation(program.getProgram(), "mvp");
+        glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(MPV));
 
         drawObject(object);
         drawObject(mat);
