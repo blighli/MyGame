@@ -133,27 +133,27 @@ void ModelObject::createMat() {
 
             vertices[vertexIndex++] = xBase;
             vertices[vertexIndex++] = yBase;
-            vertices[vertexIndex++] = 0.1;
+            vertices[vertexIndex++] = -0.1;
 
             vertices[vertexIndex++] = xBase + xStep;
             vertices[vertexIndex++] = yBase;
-            vertices[vertexIndex++] = 0.1;
+            vertices[vertexIndex++] = -0.1;
 
             vertices[vertexIndex++] = xBase;
             vertices[vertexIndex++] = yBase + yStep;
-            vertices[vertexIndex++] = 0.1;
+            vertices[vertexIndex++] = -0.1;
 
             vertices[vertexIndex++] = xBase + xStep;
             vertices[vertexIndex++] = yBase;
-            vertices[vertexIndex++] = 0.1;
+            vertices[vertexIndex++] = -0.1;
 
             vertices[vertexIndex++] = xBase;
             vertices[vertexIndex++] = yBase + yStep;
-            vertices[vertexIndex++] = 0.1;
+            vertices[vertexIndex++] = -0.1;
 
             vertices[vertexIndex++] = xBase + xStep;
             vertices[vertexIndex++] = yBase + yStep;
-            vertices[vertexIndex++] = 0.1;
+            vertices[vertexIndex++] = -0.1;
 
             float colorValue = 1.0;
             if(i%2 == 0 && j%2 != 0 || i%2 != 0 && j%2 == 0)
