@@ -4,9 +4,11 @@ project(MyGame)
 
 set (CMAKE_CXX_STANDARD 11)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  "${CMAKE_SOURCE_DIR}/bin")
+
 include_directories(include)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  "${CMAKE_SOURCE_DIR}/bin")
+find_package(OpenGL)
 
 if (APPLE)
     find_library(GLFW NAMES libglfw3.a PATHS lib/apple)
@@ -28,15 +30,19 @@ endif()
 if (MINGW)
     find_library(GLFW NAMES libglfw3.a PATHS lib/mingw)
     find_library(GLEW NAMES libglew32.a PATHS lib/mingw)
+    find_library(FreeImage NAMES libFreeImage.a PATHS lib/mingw)
 endif()
-
-add_definitions(-DGLEW_STATIC)
-
-find_package(OpenGL)
 
 list(APPEND LIBS
         "${GLFW}"
         "${GLEW}"
+        "${FreeImage}"
         "${OPENGL_LIBRARIES}")
+
+if (MINGW)
+    list(APPEND LIBS "ws2_32")
+endif()
+
+add_definitions(-DGLEW_STATIC)
 
 add_subdirectory(src)
