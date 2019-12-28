@@ -85,6 +85,8 @@ int WindowManager::init() {
     glfwSetDropCallback(window, drop_callback);
     //窗口关闭
     glfwSetWindowCloseCallback(window, window_close_callback);
+
+    return 0;
 }
 
 int WindowManager::getWidth() {
