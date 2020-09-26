@@ -9,7 +9,6 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-#define FREEIMAGE_LIB
 #include <FreeImage/FreeImage.h>
 
 void bindObject(ModelObject& object){

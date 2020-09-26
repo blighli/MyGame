@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
 project(MyGame)
-
-set (CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  "${CMAKE_SOURCE_DIR}/bin")
 
@@ -23,15 +21,10 @@ if (APPLE)
             "${IOKIT_FRAMEWORK}"
             "${CORE_FOUNDATION_FRAMEWORK}"
             "${CORE_VIDEO_FRAMEWORK}")
-endif()
-if (MSVC)
-    find_library(GLFW NAMES glfw3.lib PATHS lib/msvc)
-    find_library(GLEW NAMES glew32s.lib PATHS lib/msvc)
-endif()
-if (MINGW)
-    find_library(GLFW NAMES libglfw3.a PATHS lib/mingw)
-    find_library(GLEW NAMES libglew32.a PATHS lib/mingw)
-    find_library(FreeImage NAMES libfreeimage.a PATHS lib/mingw)
+elseif(WIN32)
+    find_library(GLFW NAMES glfw3dll.lib PATHS lib/win32)
+    find_library(GLEW NAMES glew32s.lib PATHS lib/win32)
+    find_library(FreeImage NAMES FreeImage.lib PATHS lib/win32)
 endif()
 
 list(APPEND LIBS
@@ -39,10 +32,6 @@ list(APPEND LIBS
         "${GLEW}"
         "${FreeImage}"
         "${OPENGL_LIBRARIES}")
-
-if (MINGW)
-    list(APPEND LIBS "ws2_32")
-endif()
 
 add_definitions(-DGLEW_STATIC)
 
