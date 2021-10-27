@@ -20,3 +20,7 @@ cmake-build-*
 *.exe
 *.out
 *.app
+
+# Debug Files
+*.ilk
+*.pdb
